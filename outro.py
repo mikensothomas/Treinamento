@@ -81,7 +81,7 @@ def plot_decision_boundary(X, y, mlp, resolution=0.01):
 
 # Parâmetros globais do modelo
 INPUT_SIZE = 4       # Tamanho da camada de entrada (4 atributos nutricionais)
-HIDDEN_SIZE = 4      # Tamanho da camada oculta
+HIDDEN_SIZE = 7      # Tamanho da camada oculta
 OUTPUT_SIZE = 1      # Tamanho da camada de saída (1 neurônio para classificação saudável/não saudável)
 LEARNING_RATE = 0.1  # Taxa de aprendizado
 EPOCHS = 10000       # Número de épocas de treinamento
@@ -137,3 +137,13 @@ plot_training_curve(EPOCHS, mse_values)
 
 # Geração da separação de classes
 plot_decision_boundary(X, y, mlp)
+
+# --- Resultados ---
+predicao = mlp.feedforward(X)
+predicao_formatada = np.round(predicao)  # Arredonda as predições para 0 ou 1
+
+print('\n--- Resultados ---')
+print(f'Predições (raw) -> {np.around(predicao, 4).T}')
+print(f'Predições (round) -> {predicao_formatada.T}')
+print(f'Esperado -> {y.T}')
+print(f'Acurácia -> {np.mean(predicao_formatada == y) * 100:.2f}%')
